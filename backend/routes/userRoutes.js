@@ -81,7 +81,7 @@ userRouter.post('/forgotPassword', (async (req, res) => {
 
     res.send({
       _id: user._id,
-      enail: user.email,
+      email: user.email,
       isAdmin: user.isAdmin,
       token: creatResetToken(user),
     });
