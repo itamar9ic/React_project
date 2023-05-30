@@ -12,10 +12,13 @@ import path from 'path';
 dotenv.config();
 
 mongoose
-    .connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .connect(process.env.MONGODB_URI, { 
+        useNewUrlParser: true, 
+        useUnifiedTopology: true
+     })
 
     .then(() => {
-        console.log('connected to db');
+        console.log('Connected to DB');
     })
     .catch((err) => {
         console.log(err.message);
