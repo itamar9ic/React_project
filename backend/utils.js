@@ -16,7 +16,7 @@ export const generateToken = (user) => {
 };
 
 // טוקן זמני למי ששכח סיסמא
-export const creatResetToken = (user) => {
+export const createResetToken = (user) => {
     return jwt.sign(
         {
             _id: user._id,

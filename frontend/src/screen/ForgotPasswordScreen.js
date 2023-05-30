@@ -11,8 +11,8 @@ import { Helmet } from "react-helmet-async";
 
 const ForgotPasswordScreen = () => {
 
-    const navigate = useNavigate();
     const [email, setEmail] = useState("");
+    const navigate = useNavigate();
     const { state, dispatch: ctxDispatch } = useContext(Store);
     const { userInfo } = state;
 
@@ -21,7 +21,6 @@ const ForgotPasswordScreen = () => {
         // Send a request to the backend to generate a password reset token and send an email to the user with the link to reset their password
         try {
             const { data } = await axios.post("/api/users/ForgotPassword", { email });
-            console.log(data);
             ctxDispatch({ type: "USER_SIGNIN", payload: data });
             localStorage.setItem("userInfo", JSON.stringify(data));
             navigate("/profile");

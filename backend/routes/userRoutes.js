@@ -1,7 +1,7 @@
 import express from 'express';
 import bcrypt from 'bcryptjs';
 import User from '../models/userModel.js';
-import { isAuth, isAdmin, generateToken, creatResetToken } from '../utils.js';
+import { isAuth, isAdmin, generateToken, createResetToken } from '../utils.js';
 
 const userRouter = express.Router();
 
@@ -74,37 +74,20 @@ userRouter.put('/profile', isAuth, (async (req, res) => {
 }));
 
 // שכחתי סיסמא
-userRouter.post('/forgotPassword', (async (req, res) => {
+userRouter.post('/forgotPassword', async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
-
   if (user) {
-
     res.send({
       _id: user._id,
+      username: user.username,
       email: user.email,
       isAdmin: user.isAdmin,
-      token: creatResetToken(user),
+      token: createResetToken(user),
     });
     return;
   }
-  res.status(401).send({ message: 'Invalid email' });
-}));
-
-//   }
-//   else {
-//     res.status(404).send({ message: 'Email not found' });
-//   }
-// }))
-
-// userRouter.put('/forgotPassword', (async (req, res) => {
-//   const user = await User.findOne({ email: req.body.email });
-//   if (user) {
-//     if (req.body.password) {
-//       user.password = bcrypt.hashSync(req.body.password, 8);
-//       console.log(user.password)
-//     }
-//   }
-// }))
+  res.status(401).send({ message: "Invalid email" });
+});
 
 // בקשה לקבלת רשימת כל המשתמשים על ידי האדמיו
 userRouter.get('/', isAuth, isAdmin, async (req, res) => {
